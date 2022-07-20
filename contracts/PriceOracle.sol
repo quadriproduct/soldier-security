@@ -30,7 +30,21 @@ contract PriceOracle {
     }
 
     /**
-     * Returns the latest price
+     * Returns the BTC / USD price
+     */
+    function getBtcUsdPrice() public view returns (int256) {
+        (
+            uint80 roundID,
+            int256 price,
+            uint256 startedAt,
+            uint256 timeStamp,
+            uint80 answeredInRound
+        ) = registry.latestRoundData(Denominations.BTC, Denominations.USD);
+        return price;
+    }
+
+    /**
+     * Returns the latest price for any valid pair of assets in the registry
      */
     function getPrice(address base, address quote)
         public
